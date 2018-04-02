@@ -175,7 +175,7 @@ if __name__ == "__main__":
         if min_line is not None:
             min_line = min_line.linestart
         debug("pruning line no:", min_line)
-        #text.prune(min_line)
+        text.prune(min_line)
 
     for blank in last_rectangles:
         insert_fishes_into_blank(blank, text)
