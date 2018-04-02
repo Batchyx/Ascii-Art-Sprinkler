@@ -98,6 +98,7 @@ EOF
 filter_all_until "" cat
 printf "%s\n" "$LINE"
 
+{
 # fuck up the description that nobody reads.
 filter_all_until "- Log ---*" spammer
 printf "%s\n" "$LINE"
@@ -142,3 +143,14 @@ EOF
 	esac
 done
 frobnicate_end
+} | {
+	# spammer may add \r for fun.  well, it can be funny, but not here.
+	tr -d '\r'
+} | {
+	if type iconv > /dev/null 2>&1; then
+		# mostly rasterman's fault
+		iconv -c -f UTF-8 -t UTF-8 | try fishy.py
+	else
+		cat
+	fi
+}
