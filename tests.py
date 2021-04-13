@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+# SPDX-License-Identifier: AGPL-3.0-only
 import unittest
 from ascii_art_sprinkler import Rect, BlankFinder, AsciiCanvas
 
