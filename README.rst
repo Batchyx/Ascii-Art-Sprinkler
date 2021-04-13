@@ -42,7 +42,7 @@ Usage
 
 This is a simple Python >= 3.7 script without any external dependency.
 It requires a configuration file with the ASCII Art to sprinkle
-(some examples are provided in `examples/ <tree/main/examples/>`.)
+(some examples are provided in `examples/ <examples/>`_.)
 It reads stdin and write to stdout.
 
     $ ./ascii_art_sprinkler.py examples/stars.asciiart < your-text-file.txt
@@ -72,7 +72,7 @@ separated by a blank line::
 
 
 More options can be specified in configuration files.  See
-`examples/documentation.asciiart <tree/main/examples/documentation.asciiart>`.
+`examples/documentation.asciiart <examples/documentation.asciiart>`_.
 
 ----
 Tips
@@ -89,7 +89,7 @@ Examples
 You already have seen the header above.  Here's more.
 
 Why not make your *love letters* (aka PR) to your dear maintainers
-`a bit more cute<https://www.reddit.com/r/ProgrammerHumor/comments/ll34yc/would_you_merge_with_them/>`
+`a bit more cute <https://www.reddit.com/r/ProgrammerHumor/comments/ll34yc/would_you_merge_with_them/>`_
 ? (Or degenerate, depending on your point of view).
 
 ::
@@ -113,7 +113,7 @@ Why not make your *love letters* (aka PR) to your dear maintainers
 With programming languages that supports inline comments, it is possible
 to sprinkle ASCII Art in them.
 
-And the code will still compile. `Unfortunately <https://www.schneier.com/blog/archives/2008/05/random_number_b.html>`.
+And the code will still compile. `Unfortunately <https://www.schneier.com/blog/archives/2008/05/random_number_b.html>`_.
 
 
 ::
