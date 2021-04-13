@@ -1,0 +1,82 @@
+#
+# Describe how (vulnerable) C code can also be sprinkled with comments
+# and yet still compile
+#
+# (Not that rust would have prevented this)
+#
+## margin=1
+## width=21
+
+ /* so much wow */
+
+## width=21
+
+ /* very secure */
+
+## width=21
+
+ /*  hyper safe  */
+
+## width=21
+
+  /* nsa-proof */
+
+## width=21
+
+ /* perfect code */
+
+## width=21
+
+/* so unhackabl */
+
+## width=21
+
+/* very zero CVE */
+
+## width=21
+
+/* much entropy */
+
+## width=21
+
+/* audit-approved */
+
+## width=21
+
+ /* very clarity */
+
+## width=21
+
+/* valgrind agree */
+
+## width=21
+
+  /* many purity */
+
+## width=21
+
+/* very unique key */
+
+## width=21
+
+ /* good crypto */
+
+## width=21
+
+  /* 0 backdoor */
+
+## width=21
+
+ /* safe 4 years */
+
+## width=21
+
+/* so much review */
+
+## width=21
+
+/* me speechless */
+
+## width=21
+
+/* can't do better */

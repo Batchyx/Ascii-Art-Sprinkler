@@ -1,0 +1,179 @@
+# This is both an example and serves as documentation.
+#
+# A Ascii Art file consist of blocks separated by a single blank line.
+# A block is either an ASCII Art or a comment block.
+# All lines in a comments block must start with '#'.  A block is parsed as a
+# comment block if the first line begins with '#' (unless if height= is
+# specified, more on this later).  No whitespace is allowed before '#'.
+#
+# Note that spurious whitespace at ends of lines are completely ignored.
+# So a line containing only whitespace is considered as a blank line.
+# But white space at the start of lines are significant.
+#
+# This is the end of this comment block.
+
+# This is the beginning of another comment block.
+#
+# If the first line of a block does not start with a '#', then it is an ASCII
+# Art block.  Arts blocks are still delimited by a single blank line.
+
+H   H   EEEE  L     L     OOOOO
+H   H   E     L     L     O   O
+HHHHH   EEEE  L     L     O   O
+H   H   E     L     L     O   O
+H   H   EEEE  LLLL  LLLL  OOOOO
+
+W   W   OOOOO  RRR   L     DDD
+W   W   O   O  R  R  L     D  D
+W W W   O   O  RRR   L     D  D
+WW WW   O   O  R  R  L     D  D
+W   W   OOOOO  R  R  LLLL  DDD
+
+#
+#
+# Note that comment blocks can also contains 'commands', which are lines that
+# begin with '##'.  Only one command is allowed per line.
+#
+# Commands are described below:
+
+#
+#    margin=NUMBER
+#
+# Indicates that all following ASCII Art must have a margin of white space
+# around them, in all four directions.
+# The margin prevent the art from being too close to the original text, but
+# also from other ASCII Arts.  Note that the lowest margin takes precedence
+# over higher margins (i.e. ASCII Art with a low margin may be sprinkled over
+# ASCII Art with a high margin)
+#
+# The default margin is 1.  Setting it to 0 often makes things too crowded.
+#
+## margin=0
+
+I'M DEFINITELY NOT TOO CLOSE !
+
+\o/
+
+#
+# These "arts" could possibly be sprinkled as follow
+#
+#    \o/                        I'M DEFINITELY NOT TOO CLOSE !
+#    This is the original text from the original input.  It seems that\o/
+# \o/1 + 1 = 2I'M DEFINITELY NOT TOO CLOSE !       \o/
+#
+# The default margin of
+## margin=1
+# Is generally a good choice.
+
+#
+#    mirror_x: MAPPING DEFINITION
+#
+# This both indicates that all following ASCII Art should be used both as is,
+# but also horizontally mirrored (i.e. left-to-right).  The MAPPING DEFINITION
+# indicate how individual characters must be mirrored.
+#
+# a MAPPING DEFINITION is a series of one or two characters, separated by
+# space. Here is an example:
+#
+## mirror_x: o db u w /\ - _ | <>
+#
+# This indicates that 'o', 'u', 'w' are their own mirror.  But a 'd' should be
+# changed into a 'b' (and a 'b' must be changed into a 'd'), a '/' should be
+# changed into a '\', and so on.
+
+ -----
+/  o  \
+\     |
+ ---  /
+ |   |
+
+#
+# The art above will both be sprinkled as-is AND also mirrored as follows:
+#
+#  -----
+# /  o  \
+# |     /
+# \  ---
+#  |   |
+#
+#
+# If an art contains characters that are not in the MAPPING DEFINITION, then
+# it will not be mirrored.
+#
+# horizontal mirroring can be disabled by specifying an empty maping definition
+#
+## mirror_x:
+#
+#
+# Note that this program will not attempt to detect symmetric art that is
+# unchanged by mirroring, such as this one:
+
+ -----
+d o_o b
+ |   |
+ | w |
+ |___|
+
+#
+#    mirror_y: MAPPING DEFINITION
+#
+# This, like mirror_x, indicate that all following ASCII Art should be used
+# both as-is and also vertically mirrored.  The MAPPING DEFINITION have the
+# same format as for mirror_x.
+# If both of these options are present, then ASCII Art can also be mirrored
+# both horizontally and vertically.
+#
+## mirror_y: v^ /\ o MW |
+
+ /MMM\
+/ ^ ^ \
+|  o  |
+ |WWW|
+
+# will also be mirrored as
+#
+#  |MMM|
+# |  o  |
+# \ v v /
+#  \WWW/
+#
+#
+
+#
+#    width=NUMBER
+#
+# Indicate that the next ASCII Art have the given width.  It is an error if the
+# next ASCII Art have a width higher than this number.
+#
+# This can be used to increase margins on the right (margin on the left can be
+# increased by prepending spaces).  It can also force an ASCII Art to be placed
+# on an empty line of its own.
+#
+## width=78
+
+                         WINNERS DON'T DO DRUGS
+
+#
+#    height=NUMBER
+#
+# Indicate that the next ASCII Art (and only the next one) have a height of the
+# given number of lines.
+# This option changes the behavior of the parser to ALWAYS consider the next
+# block as an ASCII Art block.  This allows to define ASCII Art with '#' in
+# them:
+#
+## height=5
+
+###########################################
+# I LOOK LIKE A COMMENT BLOCK
+# BUT I'M ACTUALLY AN ASCII ART !
+# But my height is fixed, and i must still
+# be followed by a blank line afterward.
+
+# This is the end of this documentation.
+# Note that you can test your ASCII Art file by piping "yes ''" into this
+# program.
+#
+# Note that this program assumes that ASCII Art are rendered with a fixed-size
+# font.  It supports UTF-8, but still assumes that every Unicode code unit has
+# a width of 1, which is wrong for many Unicode code points.

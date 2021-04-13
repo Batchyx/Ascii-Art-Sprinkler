@@ -1,14 +1,39 @@
 #!/bin/bash -eu
 
-# Activate this script on the first two workdays
-# if 1 is sunday, 2 is monday and 3 is tuesday
-# if 2 is saterday, 2 is sunday, 3 is monday and 4 is tuesday
-case "$(LC_ALL=C date +%a-%d-%m)" in
-	*-0[12]-04);;
-	Mon-0[23]-04);;
-	Tue-0[34]-04);;
-	*) exec cat;;
-esac
+# This script can be inserted into a git multimail or git post-receive-email
+# hook to spice it up on April the 1st and 2nd, or at least on the first two
+# work days.
+#
+# It heavily depends on the 'filters' package
+# https://joeyh.name/code/filters/
+#
+# It will:
+# - Pass the beginning of the email through the 'spammer' filter.
+# - Pass the commit message through a random selection of filters from the
+#   'filters' package
+# - Parse the patch and use the 'rasterman' filter on added lines, to add typos
+#   on the changes.
+# - Sprinkle ASCII Art of fishes over everything (this is a west-european
+#   reference).
+#
+# To use it, edit the two variable below, and arrange this program to be called
+# prior to sending the mail, either by configuring hook.sendmailcommand or by
+# modifying the hook directly.
+
+: "${SPRINKLE_ASCII_ART="/path/to/sprinkle-ascii-art.py"}"
+: "${ART_FILE="/path/to/fishes.asciiart"}"
+
+if [ -z "${FORCE_APRIL_FOOL:+set}" ]; then
+	# Activate this script on the first two workdays
+	# if 1 is sunday, 2 is monday and 3 is tuesday
+	# if 2 is saterday, 2 is sunday, 3 is monday and 4 is tuesday
+	case "$(LC_ALL=C date +%a-%d-%m)" in
+		*-0[12]-04);;
+		Mon-0[23]-04);;
+		Tue-0[34]-04);;
+		*) exec cat;;
+	esac
+fi
 
 
 try () {
@@ -36,14 +61,6 @@ b1ff_lower () {
 }
 lolcat_lower () {
 	try_turn_lowercase LOLCAT
-}
-fishy () {
-	# FIXME: use 🐠🐟🐡🦈🐬🐳🐋
-	case "$((RANDOM % 3))" in
-	0) sed -re 's_$_ ><(((*>_';;
-	1) sed -re 's_$_ <*)))‑{_';;
-	2) sed -re 's_$_ 🐟_';;
-	esac
 }
 
 frobnicate_commit_msg () {
@@ -149,7 +166,7 @@ frobnicate_end
 } | {
 	if type iconv > /dev/null 2>&1; then
 		# mostly rasterman's fault
-		iconv -c -f UTF-8 -t UTF-8 | try fishy.py
+		iconv -c -f UTF-8 -t UTF-8 | "$SPRINKLE_ASCII_ART" "$ART_FILE"
 	else
 		cat
 	fi
